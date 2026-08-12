@@ -1,7 +1,7 @@
 const BASE_URL = 'https://randomuser.me/api/'
 
 export async function fetchUsers(count = 15) {
-  const response = await fetch(`${BASE_URL}?results=${count}&seed=user-dashboard`)
+  const response = await fetch(`${BASE_URL}?results=${count}&seed=User-dashboard`)
 
   if (!response.ok) {
     throw new Error(`Failed to fetch users (status ${response.status})`)
