@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+import { fetchUsers } from '../api/user'
 import { useUsers } from '../hooks/useUsers'
 
 export function UsersPage() {

@@ -6,8 +6,8 @@ export function useUsers(count = 15) {
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState(null)
   
-    useEffect(() => {
-      async function load() {
+
+    async function load() {
         setIsLoading(true)
         setError(null)
         try {
@@ -19,7 +19,8 @@ export function useUsers(count = 15) {
           setIsLoading(false)
         }
       }
-  
+
+    useEffect(() => {
       load()
     }, [count])
 
