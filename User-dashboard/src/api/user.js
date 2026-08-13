@@ -8,7 +8,7 @@ export async function fetchUsers(count = 15) {
   }
 
   const data = await response.json()
-  return data.results.map((user, index) => ({ ...user, id: index }))
+  return data.results.map((user) => ({ ...user, id: user.login.uuid }))
 }
 
 export async function fetchUserById(id) {
@@ -19,8 +19,7 @@ export async function fetchUserById(id) {
   }
 
   const data = await response.json()
-  const index = Number(id)
-  const user = data.results[index]
+  const user = data.results.find((person) => person.login.uuid === id)
 
   if (!user) {
     throw new Error('User not found')
