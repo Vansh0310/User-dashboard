@@ -1,28 +1,33 @@
 import { useEffect, useState } from 'react'
-import { fetchUsers } from '../api/user'
+import { fetchUsers, fetchUserById } from '../api/user'
 
-export function useUsers(count = 15) {
-    const [users, setUsers] = useState([])
-    const [isLoading, setIsLoading] = useState(true)
-    const [error, setError] = useState(null)
-  
+export function useUsers(idOrCount) {
+  const [users, setUsers] = useState(null)
+  const [user, setUser] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState(null)
 
+  useEffect(() => {
     async function load() {
-        setIsLoading(true)
-        setError(null)
-        try {
-          const data = await fetchUsers(count)
+      setIsLoading(true)
+      setError(null)
+      try {
+        if (typeof idOrCount === 'string') {
+          const data = await fetchUserById(idOrCount)
+          setUser(data)
+        } else {
+          const data = await fetchUsers(idOrCount)
           setUsers(data)
-        } catch (err) {
-          setError(err.message)
-        } finally {
-          setIsLoading(false)
         }
+      } catch (err) {
+        setError(err.message)
+      } finally {
+        setIsLoading(false)
       }
+    }
 
-    useEffect(() => {
-      load()
-    }, [count])
+    load()
+  }, [idOrCount])
 
-    return { users, isLoading, error }
+  return { users, user, isLoading, error }
 }

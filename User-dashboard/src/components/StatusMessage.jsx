@@ -1,8 +1,8 @@
 export function StatusMessage({ kind, message }) {
     const styles = {
-      loading: 'text-slate-500',
-      error: 'text-red-600 bg-red-50 border border-red-200 rounded-lg px-4 py-3',
-      empty: 'text-slate-500',
+      loading: 'text-muted font-mono',
+      error: 'text-red-700 bg-red-50 border border-red-200 rounded-sm px-4 py-3 font-mono',
+      empty: 'text-muted font-mono',
     }
   
     const defaultText = {
@@ -12,8 +12,8 @@ export function StatusMessage({ kind, message }) {
     }
   
     return (
-        <div role={kind === 'error' ? 'alert' : 'status'} className={`text-sm ${styles[kind]}`}>
-          {message || defaultText[kind]}
-        </div>
-      )
+      <div role={kind === 'error' ? 'alert' : 'status'} className={`text-sm ${styles[kind]}`}>
+        {message || defaultText[kind]}
+      </div>
+    )
   }

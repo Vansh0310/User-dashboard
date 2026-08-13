@@ -1,1 +1,17 @@
-@import 'tailwindcss';
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #F7F3EA;
+  --color-ink: #1C1B1A;
+  --color-muted: #8B8378;
+  --color-ledger: #2F4A3D;
+  --color-rule: #DDD5C7;
+
+  --font-display: "Fraunces", serif;
+  --font-mono: "IBM Plex Mono", monospace;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+}
