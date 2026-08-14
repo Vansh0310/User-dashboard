@@ -1,33 +1,29 @@
 import { useEffect, useState } from 'react'
-import { fetchUsers, fetchUserById } from '../api/user'
+import { fetchUsers } from '../api/user'
 
-export function useUsers(idOrCount) {
+export function useUsers(id) {
   const [users, setUsers] = useState(null)
-  const [user, setUser] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
 
-  useEffect(() => {
-    async function load() {
-      setIsLoading(true)
-      setError(null)
-      try {
-        if (typeof idOrCount === 'string') {
-          const data = await fetchUserById(idOrCount)
-          setUser(data)
-        } else {
-          const data = await fetchUsers(idOrCount)
-          setUsers(data)
-        }
-      } catch (err) {
-        setError(err.message)
-      } finally {
-        setIsLoading(false)
-      }
+  async function load() {
+    setIsLoading(true)
+    setError(null)
+    try {
+      const data = await fetchUsers(id)
+      setUsers(data)
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setIsLoading(false)
     }
+  }
 
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional fetch; setState happens via load()
     load()
-  }, [idOrCount])
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- load closes over id; id is the real dependency
+  }, [id])
 
-  return { users, user, isLoading, error }
+  return { users, isLoading, error }
 }

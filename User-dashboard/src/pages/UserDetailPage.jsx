@@ -1,12 +1,12 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { Link } from 'react-aria-components'
-import { useUsers } from '../hooks/useUsers'
+import { useUser } from '../hooks/useUser'
 import { StatusMessage } from '../components/StatusMessage'
 
 export function UserDetailPage() {
   const { id } = useParams()
   const navigate = useNavigate()
-  const { user, isLoading, error } = useUsers(id)
+  const { user, isLoading, error } = useUser(id)
   const status = isLoading ? 'loading' : error ? 'error' : null
 
   return (
