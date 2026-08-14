@@ -4,10 +4,14 @@ import { useNavigate } from 'react-router-dom'
 export function UserList({ users }) {
   const navigate = useNavigate()
 
+  function handleAction(id) {
+    const user = users.find((person) => person.id === id)
+    navigate(`/users/${id}`, { state: { user } })
+  }
   return (
     <GridList
       aria-label="Users"
-      onAction={(id) => navigate(`/users/${id}`)}
+      onAction={handleAction}
       className="border-t border-rule"
     >
       {users.map((user, position) => (

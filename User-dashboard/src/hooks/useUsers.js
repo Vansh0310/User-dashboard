@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { fetchUsers } from '../api/user'
 
-export function useUsers(id) {
+export function useUsers(count) {
   const [users, setUsers] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -10,7 +10,7 @@ export function useUsers(id) {
     setIsLoading(true)
     setError(null)
     try {
-      const data = await fetchUsers(id)
+      const data = await fetchUsers(count)
       setUsers(data)
     } catch (err) {
       setError(err.message)
@@ -21,7 +21,7 @@ export function useUsers(id) {
 
   useEffect(() => {
     load()
-  }, [id])
+  }, [count])
 
   return { users, isLoading, error }
 }
