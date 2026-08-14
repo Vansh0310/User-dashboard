@@ -20,9 +20,7 @@ export function useUsers(id) {
   }
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional fetch; setState happens via load()
     load()
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- load closes over id; id is the real dependency
   }, [id])
 
   return { users, isLoading, error }
