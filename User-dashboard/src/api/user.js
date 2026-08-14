@@ -12,7 +12,7 @@ export async function fetchUsers(count = 15) {
 }
 
 export async function fetchUserById(id) {
-  const response = await fetch(`${BASE_URL}?results=50&seed=user-dashboard`)
+  const response = await fetch(`${BASE_URL}?results=50&seed=User-dashboard`)
 
   if (!response.ok) {
     throw new Error(`Failed to fetch user (status ${response.status})`)

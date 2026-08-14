@@ -15,7 +15,8 @@ export function UsersPage() {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Users</h1>
+      <h1 className="font-display text-2xl text-ink mb-1">Users</h1>
+      <p className="text-sm text-muted mb-6 font-mono">Click a user to see their full details.</p>
       {status && <StatusMessage kind={status} message={error} />}
       {status === null && <UserList users={users} />}
     </div>

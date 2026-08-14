@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import { fetchUsers } from '../api/user'
+import { fetchUserById } from '../api/user'
 
-export function useUsers(id) {
-  const [users, setUsers] = useState(null)
+export function useUser(id) {
+  const [user, setUser] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
 
@@ -10,8 +10,8 @@ export function useUsers(id) {
     setIsLoading(true)
     setError(null)
     try {
-      const data = await fetchUsers(id)
-      setUsers(data)
+      const data = await fetchUserById(id)
+      setUser(data)
     } catch (err) {
       setError(err.message)
     } finally {
@@ -23,5 +23,5 @@ export function useUsers(id) {
     load()
   }, [id])
 
-  return { users, isLoading, error }
+  return { user, isLoading, error }
 }
