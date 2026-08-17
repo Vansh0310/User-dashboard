@@ -1,13 +1,18 @@
+import { useContext } from 'react'
 import { GridList, GridListItem } from 'react-aria-components'
 import { useNavigate } from 'react-router-dom'
+import { SelectedUserContext } from '../context/SelectedUserContext'
 
 export function UserList({ users }) {
-  const navigate = useNavigate()
+    const navigate = useNavigate()
+    const { setSelectedUser } = useContext(SelectedUserContext)
 
-  function handleAction(id) {
-    const user = users.find((person) => person.id === id)
-    navigate(`/users/${id}`, { state: { user } })
-  }
+    function handleAction(id) {
+        const user = users.find((person) => person.id === id)
+        setSelectedUser(user)
+        navigate(`/users/${id}`)
+      }
+      
   return (
     <GridList
       aria-label="Users"

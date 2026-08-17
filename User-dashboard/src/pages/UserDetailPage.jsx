@@ -1,15 +1,14 @@
-import { useParams, useNavigate } from 'react-router-dom'
+import { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-aria-components'
-import { useUser } from '../hooks/useUser'
+import { SelectedUserContext } from '../context/SelectedUserContext'
 import { StatusMessage } from '../components/StatusMessage'
 
 export function UserDetailPage() {
-  const { id } = useParams()
   const navigate = useNavigate()
-  const { user, isLoading, error } = useUser(id)
-  const status = isLoading ? 'loading' : error ? 'error' : null
+  const { selectedUser } = useContext(SelectedUserContext)
 
-  return (
+  return ( 
     <div className="max-w-xl mx-auto px-6 py-10">
       <Link
         onPress={() => navigate('/')}
@@ -21,35 +20,37 @@ export function UserDetailPage() {
       </Link>
 
       <div className="mt-8">
-        {status && <StatusMessage kind={status} message={error} />}
+        {!selectedUser && (
+          <StatusMessage kind="error" message="No user data available. Please go back and select a user from the list." />
+        )}
 
-        {status === null && user && (
+        {selectedUser && (
           <div className="border border-rule bg-white">
             <div className="flex items-center gap-5 p-6 border-b border-dotted border-rule">
               <img
-                src={user.picture.large}
+                src={selectedUser.picture.large}
                 alt=""
                 className="h-16 w-16 rounded-sm object-cover border border-rule"
               />
               <div>
                 <p className="font-display text-2xl text-ink">
-                  {user.name.title} {user.name.first} {user.name.last}
+                  {selectedUser.name.title} {selectedUser.name.first} {selectedUser.name.last}
                 </p>
-                <p className="font-mono text-xs text-muted mt-1">{user.email}</p>
+                <p className="font-mono text-xs text-muted mt-1">{selectedUser.email}</p>
               </div>
             </div>
 
             <dl className="grid grid-cols-1 sm:grid-cols-2">
-              <Detail label="Phone" value={user.phone} />
-              <Detail label="Cell" value={user.cell} />
-              <Detail label="Gender" value={user.gender} />
-              <Detail label="Date of birth" value={new Date(user.dob.date).toLocaleDateString()} />
+              <Detail label="Phone" value={selectedUser.phone} />
+              <Detail label="Cell" value={selectedUser.cell} />
+              <Detail label="Gender" value={selectedUser.gender} />
+              <Detail label="Date of birth" value={new Date(selectedUser.dob.date).toLocaleDateString()} />
               <Detail
                 label="Address"
-                value={`${user.location.street.number} ${user.location.street.name}, ${user.location.city}, ${user.location.country}`}
+                value={`${selectedUser.location.street.number} ${selectedUser.location.street.name}, ${selectedUser.location.city}, ${selectedUser.location.country}`}
                 full
               />
-              <Detail label="Username" value={user.login.username} />
+              <Detail label="Username" value={selectedUser.login.username} />
             </dl>
           </div>
         )}
