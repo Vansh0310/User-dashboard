@@ -41,7 +41,7 @@ export function UserList({ users }) {
           />
 
           <span className="min-w-0 flex-1">
-            <span className="block font-display text-lg text-ink truncate">
+            <span data-testid="user-name" className="block font-display text-lg text-ink truncate">
               {user.name.first} {user.name.last}
             </span>
             <span className="block font-mono text-xs text-muted truncate">
